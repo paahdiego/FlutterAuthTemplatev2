@@ -1,6 +1,6 @@
+import 'package:auth_template_v2/shared/auth/auth_controller.dart';
 import 'package:auth_template_v2/shared/config/app_sizes.dart';
 import 'package:auth_template_v2/shared/widgets/default_loading_icon/default_loading_icon.dart';
-import 'package:auth_template_v2/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -11,16 +11,16 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  // final AuthController authController = AuthController();
+  final authController = AuthController();
   @override
   void initState() {
     super.initState();
-    // currentUser(context);
+    currentUser(context);
   }
 
-  // Future<void> currentUser(context) async {
-  //   await authController.currentUser(context);
-  // }
+  Future<void> currentUser(context) async {
+    await authController.currentUser(context);
+  }
 
   @override
   Widget build(BuildContext context) {

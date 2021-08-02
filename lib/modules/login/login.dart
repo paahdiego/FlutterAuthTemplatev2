@@ -1,7 +1,11 @@
+import 'package:auth_template_v2/modules/login/controllers/login_controller.dart';
+import 'package:auth_template_v2/modules/side_menu/side_menu.dart';
 import 'package:auth_template_v2/shared/config/app_sizes.dart';
+import 'package:auth_template_v2/shared/controllers/menu.dart';
 import 'package:auth_template_v2/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,25 +21,14 @@ class _LoginPageState extends State<LoginPage> {
   bool invisiblePassword = true;
   IconData invisiblePasswordIcon = Icons.visibility_off_outlined;
 
-  // final controller = LoginController();
+  final controller = LoginController();
 
   @override
   void initState() {
     super.initState();
-    // controller.addListener(() {
-    //   setState(() {});
-    // });
-  }
-
-  Future<void> login() async {
-    /*  await controller.login(
-      formKey: _formKey,
-      context: context,
-      username: emailController.text,
-      password: passController.text,
-    ); */
-
-    await Future.delayed(Duration(seconds: 10));
+    controller.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -43,6 +36,8 @@ class _LoginPageState extends State<LoginPage> {
     AppSizes sizes = AppSizes(context);
 
     return Scaffold(
+      key: Provider.of<MenuController>(context).scaffoldKey,
+      drawer: SideMenu(),
       body: SafeArea(
         child: Center(
           child: Form(
@@ -57,7 +52,11 @@ class _LoginPageState extends State<LoginPage> {
                       FlutterLogo(),
                       SizedBox(height: sizes.displayHeight * 0.07),
                       Column(
-                        children: [],
+                        children: [
+                          TextFormField(),
+                          SizedBox(height: sizes.displayHeight * 0.05),
+                          TextFormField(),
+                        ],
                       ),
                     ],
                   ),
