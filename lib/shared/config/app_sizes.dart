@@ -21,8 +21,11 @@ class AppSizes extends ChangeNotifier {
   //Sizes
   double get displayWidth => displaySize.width;
   double get displayHeight => displaySize.height;
+  double get safeHeight => displayHeight - safePaddingTop - safePaddingBottom;
 
   //Padding
+  double get safePaddingTop => mediaQuery.padding.top;
+  double get safePaddingBottom => mediaQuery.padding.bottom;
   EdgeInsets get defaultHorizontalPadding =>
       EdgeInsets.symmetric(horizontal: this.defaultPaddingValue);
 

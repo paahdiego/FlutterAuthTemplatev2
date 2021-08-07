@@ -1,35 +1,40 @@
-import 'package:auth_template_v2/shared/models/user.dart';
+import 'package:auth_template_v2/shared/auth/auth_model.dart';
+import 'package:auth_template_v2/shared/models/user_model.dart';
 import 'package:flutter/material.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthController extends ChangeNotifier {
-  final authenticationStatus = ValueNotifier<AuthenticationStatus>(
-      AuthenticationStatus.not_authenticated);
-
-  UserModel? _user;
-
-  UserModel get user => _user!;
-
-  void setUser(BuildContext context, UserModel? user) {
-    if (user != null) {
-      saveUser(user);
-      Navigator.pushReplacementNamed(context, "/home", arguments: user);
+class AuthController {
+  Future<void> isAuthenticated(BuildContext context) async {
+    final instance = await SharedPreferences.getInstance();
+    if (instance.containsKey("token")) {
+      Navigator.pushReplacementNamed(context, "/home");
     } else {
       Navigator.pushReplacementNamed(context, "/login");
     }
   }
 
-  void saveUser(UserModel user) async {
+  void authenticate(AuthModel auth) async {
+    if (auth.user != null) saveUser(auth.user!);
+    saveToken(auth.accessToken);
+  }
+
+  void saveToken(String token) async {
     final instance = await SharedPreferences.getInstance();
-    await instance.setString("user", user.toJson());
-    _user = user;
+    await instance.setString("token", token);
     return;
   }
 
-  Future<void> clearUser() async {
+  Future<String> getToken() async {
     final instance = await SharedPreferences.getInstance();
-    await instance.remove("user");
-    _user = null;
+    final token = instance.get("token") as String;
+
+    return token;
+  }
+
+  void saveUser(UserModel user) async {
+    final instance = await SharedPreferences.getInstance();
+    await instance.setString("user", user.toJson());
     return;
   }
 
@@ -40,20 +45,10 @@ class AuthController extends ChangeNotifier {
     return UserModel.fromJson(json);
   }
 
-  Future<void> currentUser(BuildContext context) async {
+  Future<void> logout() async {
     final instance = await SharedPreferences.getInstance();
-    await Future.delayed(Duration(seconds: 1));
-    if (instance.containsKey("user")) {
-      final json = instance.get("user") as String;
-      setUser(context, UserModel.fromJson(json));
-    } else {
-      setUser(context, null);
-    }
+    await instance.remove("user");
+    await instance.remove("token");
     return;
   }
-}
-
-enum AuthenticationStatus {
-  authenticated,
-  not_authenticated,
 }

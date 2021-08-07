@@ -1,13 +1,16 @@
-import 'package:auth_template_v2/modules/side_menu/widgets/drawer_list_tile/drawer_list_tile.dart';
+import 'package:auth_template_v2/l10n/l10n.dart';
+import 'package:auth_template_v2/l10n/locale_provider.dart';
+import 'package:auth_template_v2/modules/home/controllers/home_controller.dart';
+import 'package:auth_template_v2/modules/side_menu/components/drawer_list_tile/drawer_list_tile.dart';
 import 'package:auth_template_v2/shared/auth/auth_controller.dart';
 import 'package:auth_template_v2/shared/config/app_sizes.dart';
 import 'package:auth_template_v2/shared/controllers/menu.dart';
-import 'package:auth_template_v2/shared/models/user.dart';
+import 'package:auth_template_v2/shared/models/user_model.dart';
 import 'package:auth_template_v2/theme/theme.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:provider/provider.dart';
 
@@ -25,7 +28,7 @@ class _SideMenuState extends State<SideMenu> {
   UserModel? user;
   @override
   void initState() {
-    loadUser();
+    // loadUser();
     super.initState();
   }
 
@@ -36,9 +39,9 @@ class _SideMenuState extends State<SideMenu> {
 
   @override
   Widget build(BuildContext context) {
-    // final homeController = Provider.of<HomeController>(context);
-    // final localeProvider = Provider.of<LocaleProvider>(context);
-    // final locale = localeProvider.locale;
+    final homeController = Provider.of<HomeController>(context);
+    final localeProvider = Provider.of<LocaleProvider>(context);
+    final locale = localeProvider.locale;
     AppSizes sizes = AppSizes(context);
     return Drawer(
       elevation: 2.0,
@@ -64,10 +67,9 @@ class _SideMenuState extends State<SideMenu> {
               color: AppColors.primary,
             ),
             DrawerListTile(
-              // title: AppLocalizations.of(context)!.language,
-              title: "Language",
+              title: AppLocalizations.of(context)!.language,
               icon: Text(
-                "L10n.getFlag(locale.languageCode)",
+                L10n.getFlag(locale.languageCode),
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -106,7 +108,7 @@ class _SideMenuState extends State<SideMenu> {
                 color: AppColors.white,
               ),
               onTap: () async {
-                await authController.clearUser().then(
+                await authController.logout().then(
                       (value) =>
                           Navigator.pushReplacementNamed(context, "/splash"),
                     );

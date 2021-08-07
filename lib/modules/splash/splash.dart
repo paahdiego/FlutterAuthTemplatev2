@@ -1,6 +1,7 @@
 import 'package:auth_template_v2/shared/auth/auth_controller.dart';
+import 'package:auth_template_v2/shared/components/default_loading_icon/default_loading_icon.dart';
 import 'package:auth_template_v2/shared/config/app_sizes.dart';
-import 'package:auth_template_v2/shared/widgets/default_loading_icon/default_loading_icon.dart';
+
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -15,11 +16,12 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    currentUser(context);
+    isAuthenticated(context);
   }
 
-  Future<void> currentUser(context) async {
-    await authController.currentUser(context);
+  Future<void> isAuthenticated(context) async {
+    await Future.delayed(Duration(seconds: 2));
+    await authController.isAuthenticated(context);
   }
 
   @override
@@ -30,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FlutterLogo(size: sizes.displayWidth * 0.5),
+          FlutterLogo(size: sizes.displayWidth * 0.6),
           SizedBox(
             height: sizes.displayHeight * 0.1,
           ),
