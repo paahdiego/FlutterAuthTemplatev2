@@ -1,3 +1,4 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:auth_template_v2/shared/config/app_sizes.dart';
 import 'package:auth_template_v2/shared/controllers/menu.dart';
 import 'package:auth_template_v2/shared/models/user_model.dart';
@@ -7,10 +8,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:auth_template_v2/l10n/l10n.dart';
 import 'package:auth_template_v2/l10n/locale_provider.dart';
-import 'package:auth_template_v2/modules/home/controllers/home_controller.dart';
+
 import 'package:auth_template_v2/modules/home/widgets/drawer_list_tile/drawer_list_tile.dart';
 
 import 'package:auth_template_v2/shared/auth/auth_controller.dart';
@@ -31,7 +32,7 @@ class _SideMenuState extends State<SideMenu> {
   UserModel? user;
   @override
   void initState() {
-    //loadUser();
+    loadUser();
     super.initState();
   }
 
@@ -42,7 +43,6 @@ class _SideMenuState extends State<SideMenu> {
 
   @override
   Widget build(BuildContext context) {
-    // final homeController = Provider.of<HomeController>(context);
     final localeProvider = Provider.of<LocaleProvider>(context);
     final sizes = AppSizes(context);
     final themeController = Provider.of<ThemeController>(context);
@@ -59,17 +59,15 @@ class _SideMenuState extends State<SideMenu> {
                 DrawerHeader(
                   child: Column(
                     children: [
-                      /* SvgPicture.asset(
-                        AppIcons.logo,
-                        height: sizes.displayHeight * 0.1,
-                      ), */
-                      SizedBox(height: 20),
+                      FlutterLogo(
+                        size: sizes.displayHeight * 0.1,
+                      ),
+                      SizedBox(height: sizes.defaultPaddingValue),
                       if (user != null)
                         Text(
-                          /* user!.name != null
+                          user!.name != null
                               ? user!.name!
-                              : user!.email! ?? "Usuário", */
-                          "user",
+                              : user!.email ?? "Usuário",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style:

@@ -1,3 +1,4 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:auth_template_v2/shared/auth/auth_controller.dart';
 import 'package:auth_template_v2/shared/components/default_loading_icon/default_loading_icon.dart';
 import 'package:auth_template_v2/shared/config/app_sizes.dart';
@@ -32,7 +33,16 @@ class _SplashPageState extends State<SplashPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FlutterLogo(size: sizes.displayWidth * 0.6),
+          AnimatedCard(
+            curve: Curves.bounceIn,
+            direction: AnimatedCardDirection.top,
+            duration: Duration(milliseconds: 1000),
+            child: Center(
+              child: FlutterLogo(
+                size: sizes.displayWidth * 0.5,
+              ),
+            ),
+          ),
           SizedBox(
             height: sizes.displayHeight * 0.1,
           ),

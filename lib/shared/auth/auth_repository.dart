@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:auth_template_v2/modules/login/models/login.dart';
+import 'package:auth_template_v2/modules/login/models/login_model.dart';
 import 'package:auth_template_v2/shared/auth/auth_model.dart';
 import 'package:auth_template_v2/shared/config/connection.dart';
 

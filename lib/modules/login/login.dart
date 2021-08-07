@@ -1,3 +1,4 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:auth_template_v2/modules/login/controllers/login_controller.dart';
 import 'package:auth_template_v2/shared/components/default_button/default_button.dart';
 import 'package:auth_template_v2/shared/components/default_input_field/default_input_field.dart';
@@ -48,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Container(
                     height: sizes.safeHeight,
+                    width: sizes.displayWidth,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,92 +60,95 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(height: sizes.defaultPaddingValue * 4),
                         Container(
                           width: sizes.displayWidth * 0.8,
-                          child: Column(
-                            children: [
-                              DefaultInputField(
-                                hintText: AppLocalizations.of(context)!.email,
-                                icon: Icons.person_outlined,
-                                fontColor: AppColors.fontColorLight,
-                                controller: loginController.emailController,
-                                textInputAction: TextInputAction.next,
-                                inputFormatters: [LowerCaseTextFormatter()],
-                                keyboardType: TextInputType.emailAddress,
-                                validator: Validatorless.multiple(
-                                  [
-                                    Validatorless.email(
-                                        AppLocalizations.of(context)!
-                                            .emailValidator),
-                                    Validatorless.required(
-                                        AppLocalizations.of(context)!
-                                            .emailValidator),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: sizes.defaultPaddingValue),
-                              DefaultInputField(
-                                fontColor: AppColors.fontColorLight,
-                                hintText:
-                                    AppLocalizations.of(context)!.password,
-                                icon: Icons.lock_outlined,
-                                controller: loginController.passController,
-                                obscureText: invisiblePassword,
-                                onFieldSubmitted: (_) async {
-                                  await loginController.login(context: context);
-                                },
-                                suffixIcon: IconButton(
-                                    splashColor: AppColors.transparent,
-                                    icon: Icon(
-                                      invisiblePasswordIcon,
-                                      color: invisiblePassword
-                                          ? AppColors.primary.withOpacity(0.3)
-                                          : AppColors.primary,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        invisiblePassword = !invisiblePassword;
-                                        if (invisiblePassword) {
-                                          invisiblePasswordIcon =
-                                              Icons.visibility_off_outlined;
-                                        } else {
-                                          invisiblePasswordIcon =
-                                              Icons.visibility_outlined;
-                                        }
-                                      });
-                                    }),
-                                keyboardType: TextInputType.visiblePassword,
-                                validator: Validatorless.multiple(
-                                  [
-                                    Validatorless.required(
-                                        AppLocalizations.of(context)!
-                                            .passwordValidator),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: sizes.defaultPaddingValue * 2),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: sizes.displayWidth * 0.1),
-                          child: DefaultButton(
-                            color: AppColors.primary.withAlpha(230),
-                            onPressed: () async {
-                              await loginController.login(context: context);
-                            },
-                            child: loginController.state != LoginState.loading
-                                ? Text(
-                                    AppLocalizations.of(context)!.signIn,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1!
-                                        .copyWith(color: Colors.white),
-                                  )
-                                : DefaultLoadingIcon(
-                                    size: 24,
-                                    valueColor: AppColors.white,
-                                    stroke: 3.5,
+                          child: AnimatedCard(
+                            direction: AnimatedCardDirection.top,
+                            child: Column(
+                              children: [
+                                DefaultInputField(
+                                  hintText: AppLocalizations.of(context)!.email,
+                                  icon: Icons.person_outlined,
+                                  fontColor: AppColors.fontColorLight,
+                                  controller: loginController.emailController,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [LowerCaseTextFormatter()],
+                                  keyboardType: TextInputType.emailAddress,
+                                  validator: Validatorless.multiple(
+                                    [
+                                      Validatorless.email(
+                                          AppLocalizations.of(context)!
+                                              .emailValidator),
+                                      Validatorless.required(
+                                          AppLocalizations.of(context)!
+                                              .emailValidator),
+                                    ],
                                   ),
+                                ),
+                                SizedBox(height: sizes.defaultPaddingValue),
+                                DefaultInputField(
+                                  fontColor: AppColors.fontColorLight,
+                                  hintText:
+                                      AppLocalizations.of(context)!.password,
+                                  icon: Icons.lock_outlined,
+                                  controller: loginController.passController,
+                                  obscureText: invisiblePassword,
+                                  onFieldSubmitted: (_) async {
+                                    await loginController.login(
+                                        context: context);
+                                  },
+                                  suffixIcon: IconButton(
+                                      splashColor: AppColors.transparent,
+                                      icon: Icon(
+                                        invisiblePasswordIcon,
+                                        color: invisiblePassword
+                                            ? AppColors.primary.withOpacity(0.3)
+                                            : AppColors.primary,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          invisiblePassword =
+                                              !invisiblePassword;
+                                          if (invisiblePassword) {
+                                            invisiblePasswordIcon =
+                                                Icons.visibility_off_outlined;
+                                          } else {
+                                            invisiblePasswordIcon =
+                                                Icons.visibility_outlined;
+                                          }
+                                        });
+                                      }),
+                                  keyboardType: TextInputType.visiblePassword,
+                                  validator: Validatorless.multiple(
+                                    [
+                                      Validatorless.required(
+                                          AppLocalizations.of(context)!
+                                              .passwordValidator),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: sizes.defaultPaddingValue * 2),
+                                DefaultButton(
+                                  color: AppColors.primary.withAlpha(230),
+                                  onPressed: () async {
+                                    await loginController.login(
+                                        context: context);
+                                  },
+                                  child: loginController.state !=
+                                          LoginState.loading
+                                      ? Text(
+                                          AppLocalizations.of(context)!.signIn,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1!
+                                              .copyWith(color: Colors.white),
+                                        )
+                                      : DefaultLoadingIcon(
+                                          size: 24,
+                                          valueColor: AppColors.white,
+                                          stroke: 3.5,
+                                        ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],

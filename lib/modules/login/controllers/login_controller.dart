@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:auth_template_v2/modules/login/models/login.dart';
+import 'package:auth_template_v2/modules/login/models/login_model.dart';
 import 'package:auth_template_v2/shared/auth/auth_controller.dart';
 import 'package:auth_template_v2/shared/auth/auth_repository.dart';
 import 'package:flutter/material.dart';

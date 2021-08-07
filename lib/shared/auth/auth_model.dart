@@ -22,14 +22,14 @@ class AuthModel {
 
   Map<String, dynamic> toMap() {
     return {
-      // 'user': user?.toMap(),
+      'user': user?.toMap(),
       'access_token': accessToken,
     };
   }
 
   factory AuthModel.fromMap(Map<String, dynamic> map) {
     return AuthModel(
-      // user: UserModel.fromMap(map['user']),
+      user: UserModel.fromMap(map['user']),
       accessToken: map['access_token'],
     );
   }

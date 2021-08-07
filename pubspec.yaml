@@ -21,6 +21,7 @@ dependencies:
   provider: ^5.0.0
   shared_preferences: ^2.0.6
   validatorless: ^1.2.0
+  animated_card: ^2.0.0
 
 dev_dependencies:
   flutter_test:
