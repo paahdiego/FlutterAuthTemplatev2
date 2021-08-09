@@ -17,7 +17,6 @@ dependencies:
   intl: ^0.17.0
   google_fonts: ^2.1.0
   top_snackbar_flutter: ^1.0.0
-  flutter_svg: ^0.22.0
   provider: ^5.0.0
   shared_preferences: ^2.0.6
   validatorless: ^1.2.0
