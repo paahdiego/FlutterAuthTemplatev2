@@ -1,4 +1,4 @@
-import 'package:animated_card/animated_card.dart';
+import 'package:auth_template_v2/modules/home/components/drawer_list_tile/drawer_list_tile.dart';
 import 'package:auth_template_v2/shared/config/app_sizes.dart';
 import 'package:auth_template_v2/shared/controllers/menu.dart';
 import 'package:auth_template_v2/shared/models/user_model.dart';
@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 
 import 'package:auth_template_v2/l10n/l10n.dart';
 import 'package:auth_template_v2/l10n/locale_provider.dart';
-
-import 'package:auth_template_v2/modules/home/widgets/drawer_list_tile/drawer_list_tile.dart';
 
 import 'package:auth_template_v2/shared/auth/auth_controller.dart';
 
@@ -71,18 +69,6 @@ class _SideMenuState extends State<SideMenu> {
                                 user!.name != null
                                     ? user!.name!
                                     : user!.email ?? "Usuário",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      color: AppColors.white,
-                                    ),
-                              ),
-                            if (user == null)
-                              Text(
-                                "Usuário",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)

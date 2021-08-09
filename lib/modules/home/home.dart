@@ -1,4 +1,4 @@
-import 'package:auth_template_v2/modules/home/widgets/side_menu/side_menu.dart';
+import 'package:auth_template_v2/modules/home/components/side_menu/side_menu.dart';
 import 'package:auth_template_v2/shared/controllers/menu.dart';
 import 'package:auth_template_v2/theme/app_colors.dart';
 import 'package:flutter/material.dart';
