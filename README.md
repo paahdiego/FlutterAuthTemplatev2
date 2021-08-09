@@ -55,11 +55,11 @@ The app uses Provider to manage internationalization and dark/light theme funcio
 1. clone this repo.
 
    ```sh
-   git clone git@github.com:paahdiego/FlutterAuthTemplate.git
+   git clone git@github.com:paahdiego/FlutterAuthTemplatev2.git
 
    ou
 
-   git clone https://github.com/paahdiego/FlutterAuthTemplate.git
+   git clone https://github.com/paahdiego/FlutterAuthTemplatev2.git
    ```
 
 2. install dependencies:
