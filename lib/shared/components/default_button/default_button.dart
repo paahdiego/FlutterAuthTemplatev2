@@ -5,20 +5,11 @@ import 'package:flutter/material.dart';
 class DefaultButton extends StatefulWidget {
   final Widget? child;
   final VoidCallback? onPressed;
-  final Color color, textColor;
-  final double hPadding;
-  final double vPadding;
-  final bool outlined;
 
   const DefaultButton({
     Key? key,
     this.child,
     this.onPressed,
-    this.textColor = AppColors.white,
-    this.hPadding = 40,
-    this.vPadding = 20,
-    this.color = AppColors.primary,
-    this.outlined = false,
   }) : super(key: key);
 
   @override
@@ -74,36 +65,16 @@ class _DefaultButtonState extends State<DefaultButton>
           scale: _scale,
           child: TextButton(
             style: ButtonStyle(
-              elevation: !widget.outlined
-                  ? MaterialStateProperty.all(3.5)
-                  : MaterialStateProperty.all(0.5),
+              elevation: MaterialStateProperty.all(0.0),
               shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  side: widget.outlined
-                      ? BorderSide(
-                          color: widget.color,
-                        )
-                      : BorderSide.none,
-                  borderRadius: sizes.defaultBorderRadius,
-                ),
+                RoundedRectangleBorder(borderRadius: sizes.defaultBorderRadius),
               ),
               padding: MaterialStateProperty.all(
-                EdgeInsets.symmetric(
-                  vertical: widget.vPadding,
-                  horizontal: widget.hPadding,
-                ),
+                EdgeInsets.symmetric(vertical: 20, horizontal: 40),
               ),
-              overlayColor: !widget.outlined
-                  ? MaterialStateProperty.all(this.widget.color)
-                  : MaterialStateProperty.all(
-                      this.widget.color.withOpacity(0.1),
-                    ),
-              backgroundColor: !widget.outlined
-                  ? MaterialStateProperty.all(this.widget.color)
-                  : MaterialStateProperty.all(this.widget.textColor),
-              foregroundColor: !widget.outlined
-                  ? MaterialStateProperty.all(this.widget.textColor)
-                  : MaterialStateProperty.all(this.widget.color),
+              overlayColor: MaterialStateProperty.all(AppColors.primary),
+              backgroundColor: MaterialStateProperty.all(AppColors.primary),
+              foregroundColor: MaterialStateProperty.all(AppColors.white),
             ),
             onPressed: () {
               if (widget.onPressed != null) {

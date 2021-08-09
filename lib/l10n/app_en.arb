@@ -49,5 +49,6 @@
   "save": "Save",
   "next": "Next",
   "filter": "Filter",
-  "filterByDate": "Filtrar por data"
+  "filterByDate": "Filtrar por data",
+  "page1": "Page 1"
 }

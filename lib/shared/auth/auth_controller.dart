@@ -28,7 +28,6 @@ class AuthController {
   Future<String> getToken() async {
     final instance = await SharedPreferences.getInstance();
     final token = instance.get("token") as String;
-
     return token;
   }
 
@@ -41,7 +40,6 @@ class AuthController {
   Future<UserModel> getUser() async {
     final instance = await SharedPreferences.getInstance();
     final json = instance.get("user") as String;
-
     return UserModel.fromJson(json);
   }
 

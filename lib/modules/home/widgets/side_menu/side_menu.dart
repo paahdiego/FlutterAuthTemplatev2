@@ -56,88 +56,113 @@ class _SideMenuState extends State<SideMenu> {
             color: Theme.of(context).accentColor,
             child: Column(
               children: [
-                DrawerHeader(
+                Expanded(
                   child: Column(
                     children: [
-                      FlutterLogo(
-                        size: sizes.displayHeight * 0.1,
+                      DrawerHeader(
+                        child: Column(
+                          children: [
+                            FlutterLogo(
+                              size: sizes.displayHeight * 0.1,
+                            ),
+                            SizedBox(height: sizes.defaultPaddingValue),
+                            if (user != null)
+                              Text(
+                                user!.name != null
+                                    ? user!.name!
+                                    : user!.email ?? "Usuário",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      color: AppColors.white,
+                                    ),
+                              ),
+                            if (user == null)
+                              Text(
+                                "Usuário",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      color: AppColors.white,
+                                    ),
+                              ),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: sizes.defaultPaddingValue),
-                      if (user != null)
-                        Text(
-                          user!.name != null
-                              ? user!.name!
-                              : user!.email ?? "Usuário",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    color: AppColors.white,
-                                  ),
+                      DrawerListTile(
+                        title: AppLocalizations.of(context)!.page1,
+                        icon: Icon(
+                          Icons.home_repair_service_outlined,
+                          color: AppColors.white,
                         ),
-                      if (user == null)
-                        Text(
-                          "Usuário",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    color: AppColors.white,
-                                  ),
-                        ),
+                        onTap: () {
+                          Provider.of<MenuController>(context, listen: false)
+                              .controlMenu();
+                        },
+                      ),
                     ],
                   ),
                 ),
-                DrawerListTile(
-                  title: themeController.themeMode.toString(),
-                  icon: Icon(Icons.dark_mode),
-                  onTap: () {
-                    themeController.changeTheme();
-                  },
-                ),
-                DrawerListTile(
-                  title: AppLocalizations.of(context)!.language,
-                  icon: Text(
-                    L10n.getFlag(localeProvider.locale.languageCode),
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 24),
+                Container(
+                  width: sizes.displayWidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      IconButton(
+                        icon: Text(
+                          L10n.getFlag(localeProvider.locale.languageCode),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: 24),
+                        ),
+                        onPressed: () {
+                          int currentIndex =
+                              L10n.all.indexOf(localeProvider.locale);
+                          int total = L10n.all.length;
+                          int nextIndex = 0;
+                          if (currentIndex != total - 1) {
+                            nextIndex = currentIndex + 1;
+                          }
+                          localeProvider.locale = L10n.all[nextIndex];
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.dark_mode,
+                          color: themeController.themeMode == ThemeMode.dark
+                              ? AppColors.white
+                              : Colors.black.withAlpha(150),
+                        ),
+                        onPressed: () {
+                          themeController.changeTheme();
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.power_settings_new_outlined,
+                          color: AppColors.white,
+                        ),
+                        onPressed: () async {
+                          await authController.logout().then(
+                                (_) => Navigator.pushReplacementNamed(
+                                    context, "/"),
+                              );
+                        },
+                      ),
+                    ],
                   ),
-                  onTap: () {
-                    int currentIndex = L10n.all.indexOf(localeProvider.locale);
-                    int total = L10n.all.length;
-                    int nextIndex = 0;
-                    if (currentIndex != total - 1) {
-                      nextIndex = currentIndex + 1;
-                    }
-                    localeProvider.locale = L10n.all[nextIndex];
-                  },
                 ),
-                DrawerListTile(
-                  title: "Página 1",
-                  icon: Icon(
-                    Icons.home_repair_service_outlined,
-                    color: AppColors.white,
-                  ),
-                  onTap: () {
-                    Provider.of<MenuController>(context, listen: false)
-                        .controlMenu();
-                  },
-                ),
-                DrawerListTile(
-                  title: AppLocalizations.of(context)!.logout,
-                  icon: Icon(
-                    Icons.power_settings_new_outlined,
-                    color: AppColors.white,
-                  ),
-                  onTap: () async {
-                    await authController.logout().then(
-                          (_) => Navigator.pushReplacementNamed(context, "/"),
-                        );
-                  },
-                ),
+                SizedBox(
+                  height: sizes.defaultPaddingValue * 2,
+                )
               ],
             ),
           ),

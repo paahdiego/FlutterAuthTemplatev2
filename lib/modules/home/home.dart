@@ -1,5 +1,6 @@
 import 'package:auth_template_v2/modules/home/widgets/side_menu/side_menu.dart';
 import 'package:auth_template_v2/shared/controllers/menu.dart';
+import 'package:auth_template_v2/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -30,9 +31,24 @@ class _HomePageState extends State<HomePage> {
       key: Provider.of<MenuController>(context).scaffoldKey,
       drawer: SideMenu(),
       body: SafeArea(
-        child: LayoutBuilder(builder: (context, constraints) {
-          return Container();
-        }),
+        child: Stack(
+          children: [
+            Positioned(
+                child: IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: AppColors.primary,
+              ),
+              onPressed: () {
+                Provider.of<MenuController>(context, listen: false)
+                    .controlMenu();
+              },
+            )),
+            Center(
+              child: Text("Home Page"),
+            ),
+          ],
+        ),
       ),
     );
   }

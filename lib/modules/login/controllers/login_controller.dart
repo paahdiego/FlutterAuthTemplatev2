@@ -35,8 +35,6 @@ class LoginController extends ChangeNotifier {
 
       try {
         final response = await authRepository.login(login);
-        print(response);
-
         authController.authenticate(response);
         Navigator.pushReplacementNamed(context, "/home");
         state = LoginState.not_loading;
@@ -44,7 +42,6 @@ class LoginController extends ChangeNotifier {
       } catch (error) {
         state = LoginState.not_loading;
         notifyListeners();
-        log(error.toString());
         showTopSnackBar(
           context,
           CustomSnackBar.error(

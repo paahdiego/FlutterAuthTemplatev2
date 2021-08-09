@@ -47,12 +47,7 @@ class DefaultInputField extends StatelessWidget {
     final themeController = Provider.of<ThemeController>(context);
 
     return Container(
-      padding: EdgeInsets.only(
-        left: sizes.defaultPaddingValue,
-        right: sizes.defaultPaddingValue,
-        top: 5,
-        bottom: 5,
-      ),
+      padding: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         color: backgroundColor != null
             ? backgroundColor
@@ -71,44 +66,74 @@ class DefaultInputField extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            TextFormField(
-              validator: validator,
-              inputFormatters: inputFormatters,
-              controller: controller,
-              obscureText: obscureText,
-              onChanged: onChanged,
-              cursorColor: AppColors.primary,
-              onTap: () {
-                FocusScopeNode currentFocus = FocusScope.of(context);
-                if (!currentFocus.hasPrimaryFocus) {
-                  currentFocus.unfocus();
-                }
-              },
-              keyboardType: keyboardType,
-              onFieldSubmitted: onFieldSubmitted,
-              textInputAction: textInputAction,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(color: fontColor != null ? fontColor : null),
-              decoration: InputDecoration(
-                hintText: hintText,
-                counterText: "",
-                hintStyle: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(color: fontColor != null ? fontColor : null),
-                border: InputBorder.none,
-                errorStyle: TextStyle(
-                  color: AppColors.primary,
+            if (icon != null)
+              Positioned(
+                left: 0,
+                child: IconButton(
+                  icon: Icon(
+                    icon!,
+                    color: AppColors.primary,
+                  ),
+                  onPressed: null,
                 ),
               ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: icon != null
+                      ? sizes.defaultPaddingValue / 2 + 34
+                      : sizes.defaultPaddingValue / 2,
+                ),
+                Expanded(
+                  child: TextFormField(
+                    validator: validator,
+                    inputFormatters: inputFormatters,
+                    controller: controller,
+                    obscureText: obscureText,
+                    onChanged: onChanged,
+                    cursorColor: AppColors.primary,
+                    onTap: () {
+                      FocusScopeNode currentFocus = FocusScope.of(context);
+                      if (!currentFocus.hasPrimaryFocus) {
+                        currentFocus.unfocus();
+                      }
+                    },
+                    keyboardType: keyboardType,
+                    onFieldSubmitted: onFieldSubmitted,
+                    textInputAction: textInputAction,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(color: fontColor != null ? fontColor : null),
+                    decoration: InputDecoration(
+                      hintText: hintText,
+                      counterText: "",
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(
+                              color: fontColor != null ? fontColor : null),
+                      border: InputBorder.none,
+                      errorStyle: TextStyle(
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: suffixIcon != null
+                      ? sizes.defaultPaddingValue / 2 + 34
+                      : sizes.defaultPaddingValue / 2,
+                ),
+              ],
             ),
             if (suffixIcon != null)
               Positioned(
                 right: 0,
                 child: suffixIcon!,
-              ),
+              )
           ],
         ),
       ),

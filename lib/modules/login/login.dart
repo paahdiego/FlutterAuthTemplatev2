@@ -6,7 +6,6 @@ import 'package:auth_template_v2/shared/components/default_loading_icon/default_
 import 'package:auth_template_v2/shared/config/app_sizes.dart';
 import 'package:auth_template_v2/theme/theme.dart';
 import 'package:auth_template_v2/theme/theme_controller.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -127,7 +126,6 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 SizedBox(height: sizes.defaultPaddingValue * 2),
                                 DefaultButton(
-                                  color: AppColors.primary.withAlpha(230),
                                   onPressed: () async {
                                     await loginController.login(
                                         context: context);
